@@ -1,5 +1,15 @@
 import random
 import csv
+import sys
+import os
+
+def get_resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 def load_ipa_data(filename):
     data = []
@@ -81,7 +91,8 @@ def select_question(row):
 
 def main():
     print("Welcome to IPA master")
-    ipa_data = load_ipa_data("ipa.csv")
+    csv_path = get_resource_path("ipa.csv")
+    ipa_data = load_ipa_data(csv_path)
     random.shuffle(ipa_data)
     for row in ipa_data:
         print("")

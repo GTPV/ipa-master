@@ -26,8 +26,12 @@ def vowel_check(row):
         user_input = input()
         if user_input == "1":
             symbol_type = "vowel"
-        else:
+        elif user_input == "2":
             symbol_type = "consonant"
+        else:
+            print("Invalid choice. Try again.")
+            continue
+
         if symbol_type == row[1]:
             break
         else:
@@ -40,6 +44,10 @@ def print_choices(choices):
 def validate_input(answer, choices):
     while True:
         user_input = input()
+        user_choice = int(user_input) - 1
+        if user_choice < 0 or user_choice >= len(choices):
+            print("Invalid choice. Try again.")
+            continue
         choice = choices[int(user_input) - 1]
         if choice == answer:
             break

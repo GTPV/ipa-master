@@ -84,7 +84,7 @@ def consonant_question(row):
     validate_input(row[2], places)
 
     print(f"Choose the manner of articulation of the consonant {row[0]}")
-    manners = ["plosive", "nasal", "trill", "tap", "fricative", "lateral fricative", "approximant", "lateral approximant"]
+    manners = ["plosive", "nasal", "trill", "flap", "fricative", "lateral fricative", "approximant", "lateral approximant"]
     print_choices(manners)
     validate_input(row[3], manners)
 
@@ -102,10 +102,35 @@ def main():
     csv_path = get_resource_path("ipa.csv")
     ipa_data = load_ipa_data(csv_path)
     random.shuffle(ipa_data)
+
+    print("Select which type of IPA symbol you would like to practice:")
+    print("1. Vowels")
+    print("2. Consonants")
+    print("3. Both")
+
+    input_choice = int(input())
+
+    while True:
+        if input_choice == 1:
+            ipa_data = [row for row in ipa_data if row[1] == "vowel"]
+            print("Only vowels")
+            break
+        elif input_choice == 2:
+            ipa_data = [row for row in ipa_data if row[1] == "consonant"]
+            print("Only consonants")
+            break
+        elif input_choice == 3:
+            print("Both vowels and consonants")
+            break
+        else:
+            print("Invalid choice. Try again.")
+            continue
+
     for row in ipa_data:
         print("")
         print(row[0])
-        vowel_check(row)
+        if input_choice == 3:
+            vowel_check(row)
         select_question(row)
 
 if __name__ == "__main__":
